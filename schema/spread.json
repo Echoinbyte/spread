@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Spread Configuration",
+  "description": "Schema for the spread.json configuration file.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the spread project."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the spread project."
+    },
+    "author": {
+      "type": "string",
+      "description": "Author of the spread project."
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "Homepage URL of the spread project."
+    },
+    "items": {
+      "type": "array",
+      "description": "List of spread items.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Unique name of the spread item."
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the spread item."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the spread item.",
+            "enum": ["component", "utility", "hook", "layout", "page"]
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the spread item.",
+            "default": "1.0.0"
+          },
+          "keywords": {
+            "type": "array",
+            "description": "Keywords to categorize the spread item.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "array",
+            "description": "List of files included in the spread item.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "Original path of the file."
+                },
+                "target": {
+                  "type": "string",
+                  "description": "Target path for the file when spread."
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the file (base64 for binary, text for others)."
+                },
+                "absolute": {
+                  "type": "string",
+                  "description": "Absolute path of the file."
+                }
+              },
+              "required": ["path", "target"]
+            }
+          },
+          "dependencies": {
+            "type": "object",
+            "description": "NPM dependencies required by the spread item.",
+            "additionalProperties": {
+              "type": "string",
+              "description": "NPM package version."
+            }
+          },
+          "devDependencies": {
+            "type": "object",
+            "description": "NPM devDependencies required by the spread item.",
+            "additionalProperties": {
+              "type": "string",
+              "description": "NPM package version."
+            }
+          },
+          "spreadDependencies": {
+            "type": "object",
+            "description": "Spread dependencies required by the spread item.",
+            "additionalProperties": {
+              "type": "string",
+              "description": "Spread item version."
+            }
+          }
+        },
+        "required": ["name", "files"]
+      }
+    }
+  },
+  "required": ["name", "items"]
+}

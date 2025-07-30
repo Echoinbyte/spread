@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Spread Registry Configuration",
+  "description": "Schema for the spread-registry.json file.",
+  "type": "object",
+  "properties": {
+    "spreads": {
+      "type": "object",
+      "description": "Map of available spread items in the registry, keyed by spread name.",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "properties": {
+            "spread": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL to the spread.json file for this item."
+            },
+            "versions": {
+              "type": "array",
+              "description": "List of available versions for this spread item.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["spread", "versions"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["spreads"]
+}
